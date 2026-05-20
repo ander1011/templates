@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Fraunces } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider"
 import "./globals.css"
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -215,9 +214,7 @@ export default function RootLayout({
         >
           Pular para o conteúdo principal
         </a>
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
+        {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

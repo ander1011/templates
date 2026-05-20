@@ -1,0 +1,401 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DICON CONTABILIDADE — Design System
+   Padrão Shopify Editions × ABTC — nível Awwwards / SOTD
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Cores Base DICON ─── */
+  --ink-deep: #050A14;
+  --ink-rich: #0A1628;
+  --ink-mid: #101620;
+  
+  --bone: #F2F0EA;
+  --bone-muted: #A8B3C7;
+  
+  --gold: #C9A661;
+  --gold-warm: #FAC496;
+  
+  --electric: #487CFF;
+  --electric-soft: #7BAFFF;
+  
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-fill: rgba(255, 255, 255, 0.025);
+  
+  /* ─── Semantic Tokens ─── */
+  --background: var(--ink-deep);
+  --foreground: var(--bone);
+  --card: var(--ink-mid);
+  --card-foreground: var(--bone);
+  --popover: var(--ink-rich);
+  --popover-foreground: var(--bone);
+  --primary: var(--electric);
+  --primary-foreground: var(--bone);
+  --secondary: var(--ink-rich);
+  --secondary-foreground: var(--bone);
+  --muted: var(--ink-mid);
+  --muted-foreground: var(--bone-muted);
+  --accent: var(--gold);
+  --accent-foreground: var(--ink-deep);
+  --destructive: #ef4444;
+  --destructive-foreground: var(--bone);
+  --border: var(--glass-border);
+  --input: var(--glass-border);
+  --ring: var(--gold);
+  
+  /* ─── Radius ─── */
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), 'Geist', system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), 'Fraunces', Georgia, serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', monospace;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* ─── DICON Custom Colors ─── */
+  --color-ink-deep: var(--ink-deep);
+  --color-ink-rich: var(--ink-rich);
+  --color-ink-mid: var(--ink-mid);
+  --color-bone: var(--bone);
+  --color-bone-muted: var(--bone-muted);
+  --color-gold: var(--gold);
+  --color-gold-warm: var(--gold-warm);
+  --color-electric: var(--electric);
+  --color-electric-soft: var(--electric-soft);
+  --color-glass-border: var(--glass-border);
+  --color-glass-fill: var(--glass-fill);
+  
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--ink-deep);
+  }
+  
+  body {
+    @apply bg-ink-deep text-bone antialiased;
+    overflow-x: hidden;
+  }
+  
+  /* ─── Selection ─── */
+  ::selection {
+    background-color: var(--gold);
+    color: var(--ink-deep);
+  }
+  
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--ink-deep);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-warm);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Typography Utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  .text-display {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  
+  .text-display-italic {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  
+  .text-label {
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  
+  .text-body {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+  
+  /* ─── Hero Typography ─── */
+  .hero-title {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    font-size: clamp(3rem, 12vw, 10rem);
+  }
+  
+  /* ─── Glass Effect ─── */
+  .glass {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(201, 166, 97, 0.3);
+    transform: scale(1.02);
+  }
+  
+  /* ─── Section Spacing ─── */
+  .section-padding {
+    padding-top: clamp(6rem, 15vh, 12rem);
+    padding-bottom: clamp(6rem, 15vh, 12rem);
+  }
+  
+  /* ─── Glow Effects ─── */
+  .glow-gold {
+    box-shadow: 0 0 40px rgba(201, 166, 97, 0.3);
+  }
+  
+  .glow-electric {
+    box-shadow: 0 0 40px rgba(72, 124, 255, 0.4);
+  }
+  
+  /* ─── Line Decorations ─── */
+  .line-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  
+  .line-vertical {
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Animation Utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-counter {
+    animation: counter 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-line-draw {
+    animation: lineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineDraw {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(201, 166, 97, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(201, 166, 97, 0.5);
+  }
+}
+
+@keyframes scroll-indicator {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(8px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Marquee Animation
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Reduced Motion
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Custom Cursor (Desktop Only)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-custom {
+    cursor: none;
+  }
+  
+  .cursor-custom * {
+    cursor: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Lenis Smooth Scroll
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

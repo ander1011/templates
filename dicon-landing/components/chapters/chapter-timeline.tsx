@@ -17,7 +17,7 @@ const milestones = [
     description:
       "Fundação em Novo Hamburgo, no auge da indústria coureiro-calçadista da região.",
     image:
-      "/images/nh-1975.png",
+      "/images/nh-1975.webp",
   },
   {
     year: "1995",
@@ -32,7 +32,7 @@ const milestones = [
     description:
       "Modernização: digitalização total dos processos contábeis e eSocial. Novo escritório inaugurado.",
     image:
-      "/images/desk-flatlay.png",
+      "/images/desk-flatlay.webp",
   },
   {
     year: "2020",

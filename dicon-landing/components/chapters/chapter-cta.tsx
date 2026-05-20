@@ -55,7 +55,7 @@ export function ChapterCTA() {
       {/* Background image */}
       <div className="absolute inset-0 z-0 opacity-30">
         <Image
-          src="/images/hero-globe.png"
+          src="/images/hero-globe.webp"
           alt=""
           fill
           className="object-cover object-center"

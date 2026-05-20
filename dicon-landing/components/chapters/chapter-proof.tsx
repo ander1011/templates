@@ -107,7 +107,7 @@ export function ChapterProof() {
       {/* Background image */}
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
-          src="/images/ledger.png"
+          src="/images/ledger.webp"
           alt=""
           fill
           className="object-cover object-center"

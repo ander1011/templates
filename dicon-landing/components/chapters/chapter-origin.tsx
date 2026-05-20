@@ -105,7 +105,7 @@ export function ChapterOrigin() {
               transition={{ duration: 0.3 }}
             >
               <Image
-                src="/images/pen.png"
+                src="/images/pen.webp"
                 alt="Detalhe de canetas tinteiro douradas representando precisão e elegância"
                 fill
                 className="object-cover"

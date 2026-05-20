@@ -49,18 +49,19 @@ export function ChapterHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden"
       aria-label="Seção principal"
     >
       {/* Background Image */}
-      <div className="hero-bg absolute inset-0 z-0">
+      <div className="hero-bg absolute inset-0 z-0" style={{ willChange: "transform", transform: "translateZ(0)" }}>
         <Image
-          src="/images/hero-globe.png"
+          src="/images/hero-globe.webp"
           alt=""
           fill
+          sizes="(max-width: 768px) 100vw, 100vw"
           className="object-cover object-center"
           priority
-          quality={90}
+          quality={85}
         />
         {/* Overlay gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink-deep/60 via-ink-deep/40 to-ink-deep" />

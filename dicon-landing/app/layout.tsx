@@ -127,15 +127,18 @@ const jsonLd = {
       description:
         "Contabilidade premium em Novo Hamburgo desde 1975. Especialistas em tributário, societário, fiscal e gestão estratégica.",
       foundingDate: "1975",
+      email: "dicon@dicon.cnt.br",
       address: {
         "@type": "PostalAddress",
+        streetAddress: "Av. Primeiro de Março, 910",
         addressLocality: "Novo Hamburgo",
         addressRegion: "RS",
+        postalCode: "93320-102",
         addressCountry: "BR",
       },
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+55-51-99099-0909",
+        telephone: "+55-51-9977-3266",
         contactType: "customer service",
         availableLanguage: "Portuguese",
       },
@@ -154,13 +157,26 @@ const jsonLd = {
       "@id": "https://diconcontabil.com.br/#localbusiness",
       name: "DICON Contabilidade",
       image: "https://diconcontabil.com.br/og-image.jpg",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Novo Hamburgo",
-        addressRegion: "RS",
-        addressCountry: "BR",
-      },
+      address: [
+        {
+          "@type": "PostalAddress",
+          streetAddress: "Av. Primeiro de Março, 910",
+          addressLocality: "Novo Hamburgo",
+          addressRegion: "RS",
+          postalCode: "93320-102",
+          addressCountry: "BR",
+        },
+        {
+          "@type": "PostalAddress",
+          streetAddress: "Rua Bartolomeu de Gusmão, 481",
+          addressLocality: "Novo Hamburgo",
+          addressRegion: "RS",
+          postalCode: "93542-000",
+          addressCountry: "BR",
+        },
+      ],
       telephone: "+55-51-3594-3787",
+      email: "dicon@dicon.cnt.br",
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

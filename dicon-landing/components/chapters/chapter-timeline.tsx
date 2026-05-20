@@ -15,7 +15,7 @@ const milestones = [
     year: "1975",
     title: "Fundação",
     description:
-      "Fundação em Novo Hamburgo, primeira sala alugada na Rua Bento Gonçalves. Indústria coureiro-calçadista vivia seu auge.",
+      "Fundação em Novo Hamburgo, no auge da indústria coureiro-calçadista da região.",
     image:
       "/images/nh-1975.png",
   },

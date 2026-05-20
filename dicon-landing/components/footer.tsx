@@ -23,9 +23,9 @@ const footerLinks = {
     { label: "Dashboards", href: "#tecnologia" },
   ],
   contato: [
-    { label: "(51) 99099-0909", href: "https://wa.me/5551990990909", external: true },
+    { label: "(51) 9977-3266", href: "https://wa.me/555199773266", external: true },
     { label: "(51) 3594-3787", href: "tel:+555135943787" },
-    { label: "contato@diconcontabil.com.br", href: "mailto:contato@diconcontabil.com.br" },
+    { label: "dicon@dicon.cnt.br", href: "mailto:dicon@dicon.cnt.br" },
   ],
 }
 

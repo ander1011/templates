@@ -262,7 +262,7 @@ export function ChapterCTA() {
             <div className="space-y-6">
               {/* WhatsApp */}
               <Link
-                href="https://wa.me/5551990990909"
+                href="https://wa.me/555199773266"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-xl bg-ink-mid/50 hover:bg-ink-mid transition-colors group"
@@ -274,7 +274,7 @@ export function ChapterCTA() {
                 <div>
                   <span className="block text-sm text-bone-muted">WhatsApp</span>
                   <span className="block text-bone group-hover:text-gold-warm transition-colors">
-                    (51) 99099-0909
+                    (51) 9977-3266
                   </span>
                 </div>
               </Link>
@@ -298,7 +298,7 @@ export function ChapterCTA() {
 
               {/* Email */}
               <Link
-                href="mailto:contato@diconcontabil.com.br"
+                href="mailto:dicon@dicon.cnt.br"
                 className="flex items-center gap-4 p-4 rounded-xl bg-ink-mid/50 hover:bg-ink-mid transition-colors group"
                 data-cursor-hover
               >
@@ -308,19 +308,42 @@ export function ChapterCTA() {
                 <div>
                   <span className="block text-sm text-bone-muted">E-mail</span>
                   <span className="block text-bone group-hover:text-gold-warm transition-colors">
-                    contato@diconcontabil.com.br
+                    dicon@dicon.cnt.br
                   </span>
                 </div>
               </Link>
 
-              {/* Address */}
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-ink-mid/50">
-                <div className="p-3 rounded-xl bg-gold/10">
+              {/* Matriz */}
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-ink-mid/50">
+                <div className="p-3 rounded-xl bg-gold/10 shrink-0">
                   <MapPin className="w-6 h-6 text-gold" />
                 </div>
                 <div>
-                  <span className="block text-sm text-bone-muted">Endereço</span>
-                  <span className="block text-bone">Novo Hamburgo, RS</span>
+                  <span className="block text-sm text-bone-muted">Matriz</span>
+                  <span className="block text-bone leading-relaxed">
+                    Av. Primeiro de Março, 910
+                    <br />
+                    Pátria Nova — CEP 93320-102
+                    <br />
+                    Novo Hamburgo / RS
+                  </span>
+                </div>
+              </div>
+
+              {/* Filial */}
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-ink-mid/50">
+                <div className="p-3 rounded-xl bg-gold/10 shrink-0">
+                  <MapPin className="w-6 h-6 text-gold" />
+                </div>
+                <div>
+                  <span className="block text-sm text-bone-muted">Filial</span>
+                  <span className="block text-bone leading-relaxed">
+                    Rua Bartolomeu de Gusmão, 481
+                    <br />
+                    Canudos — CEP 93542-000
+                    <br />
+                    Novo Hamburgo / RS
+                  </span>
                 </div>
               </div>
 

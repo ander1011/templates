@@ -6,6 +6,7 @@ import { ChapterMethod } from "@/components/chapters/chapter-method"
 import { ChapterNumeros } from "@/components/chapters/chapter-numeros"
 import { ChapterReach } from "@/components/chapters/chapter-reach"
 import { ChapterTimeline } from "@/components/chapters/chapter-timeline"
+import { ChapterTrust } from "@/components/chapters/chapter-trust"
 import { ChapterClientes } from "@/components/chapters/chapter-clientes"
 import { ChapterFAQ } from "@/components/chapters/chapter-faq"
 import { ChapterCTA } from "@/components/chapters/chapter-cta"
@@ -22,6 +23,7 @@ export default function Home() {
       <ChapterNumeros />
       <ChapterReach />
       <ChapterTimeline />
+      <ChapterTrust />
       <ChapterClientes />
       <ChapterFAQ />
       <ChapterCTA />

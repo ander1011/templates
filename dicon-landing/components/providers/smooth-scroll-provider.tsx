@@ -29,22 +29,27 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const [lenis, setLenis] = useState<Lenis | null>(null)
 
   useEffect(() => {
-    // Check for reduced motion preference
+    // Check for reduced motion or low-power devices
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isLowEnd =
+      navigator.hardwareConcurrency <= 4 ||
+      (navigator as any).deviceMemory <= 4 ||
+      window.matchMedia("(max-width: 768px)").matches // desativa smooth scroll no mobile
 
-    if (prefersReducedMotion) {
-      return
+    if (prefersReducedMotion || isLowEnd) {
+      return // scroll nativo (60fps garantido)
     }
 
-    // Initialize Lenis
+    // Initialize Lenis — calibrado para fluidez (duration menor = menos lag)
     const lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.8, // antes 1.2 — sensação mais responsiva
+      easing: (t) => 1 - Math.pow(1 - t, 3), // ease-out-cubic (mais natural)
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.1, // pouco mais rápido
+      touchMultiplier: 1.5, // mobile mais natural
+      syncTouch: false,
     })
 
     lenisRef.current = lenisInstance

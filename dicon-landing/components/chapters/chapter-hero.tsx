@@ -16,29 +16,35 @@ export function ChapterHero() {
   const titleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
+    // Desativa parallax pesado em mobile/low-end
+    const isMobile = window.matchMedia("(max-width: 768px)").matches
+    const isLowEnd = navigator.hardwareConcurrency <= 4
+    if (isMobile || isLowEnd) return
+
     const ctx = gsap.context(() => {
-      // Parallax effect on scroll
+      // Parallax suave + scrub com delay (interpola entre frames = menos picar)
       gsap.to(".hero-bg", {
-        yPercent: 30,
+        yPercent: 18, // antes 30 — menos repaint
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: true,
+          scrub: 0.8, // interpolado (não scrub instantâneo)
         },
       })
 
-      // Fade out content on scroll
       gsap.to(".hero-content", {
         opacity: 0,
-        y: -50,
+        y: -30,
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "center top",
           end: "bottom top",
-          scrub: true,
+          scrub: 0.8,
         },
       })
     }, sectionRef)

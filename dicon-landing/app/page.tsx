@@ -3,6 +3,7 @@ import { ChapterProof } from "@/components/chapters/chapter-proof"
 import { ChapterOrigin } from "@/components/chapters/chapter-origin"
 import { ChapterMarquee } from "@/components/chapters/chapter-marquee"
 import { ChapterMethod } from "@/components/chapters/chapter-method"
+import { ChapterNumeros } from "@/components/chapters/chapter-numeros"
 import { ChapterReach } from "@/components/chapters/chapter-reach"
 import { ChapterTimeline } from "@/components/chapters/chapter-timeline"
 import { ChapterTrust } from "@/components/chapters/chapter-trust"
@@ -19,6 +20,7 @@ export default function Home() {
       <ChapterOrigin />
       <ChapterMarquee />
       <ChapterMethod />
+      <ChapterNumeros />
       <ChapterReach />
       <ChapterTimeline />
       <ChapterTrust />

@@ -3,32 +3,38 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-// Lista de clientes — substitua nomes e arquivos de logo conforme necessário.
-// Os logos devem ficar em /public/clientes/{slug}.svg (preferencialmente SVG monocromático).
+// Empresas / setores dos clientes — substitua por nomes reais quando tiver
 const clientes = [
-  { name: "Indústria Calçadista NH", slug: "calcadista-nh" },
-  { name: "Varejo Sul", slug: "varejo-sul" },
-  { name: "Holding Família Schmitt", slug: "holding-schmitt" },
-  { name: "Tech Couro RS", slug: "tech-couro" },
-  { name: "Distribuidora Aliança", slug: "distribuidora-alianca" },
-  { name: "Imobiliária Hamburgo", slug: "imobiliaria-hamburgo" },
-  { name: "Construtora Vale", slug: "construtora-vale" },
-  { name: "Café Estação", slug: "cafe-estacao" },
-  { name: "Logística RS", slug: "logistica-rs" },
-  { name: "Estúdio Norte", slug: "estudio-norte" },
-  { name: "Auto Peças Centro", slug: "auto-pecas" },
-  { name: "Mercado União", slug: "mercado-uniao" },
+  "Calçados Premium",
+  "Indústria Coureira",
+  "Varejo Sul",
+  "Holding Família",
+  "Tech Couro RS",
+  "Distribuidora Aliança",
+  "Imobiliária Hamburgo",
+  "Construtora Vale",
+  "Café Estação",
+  "Logística RS",
+  "Auto Peças Centro",
+  "Mercado União",
+  "E-commerce Brasil",
+  "Restaurante Schmitt",
+  "Posto Aliança",
+  "Farmácia Central",
 ]
 
 export function ChapterClientes() {
+  // Duplicate para loop infinito
+  const items = [...clientes, ...clientes]
+
   return (
     <section
-      className="relative py-24 md:py-32 bg-ink-deep border-y border-gold/10"
+      className="relative py-24 md:py-28 bg-ink-deep border-y border-gold/10"
       aria-labelledby="clientes-title"
     >
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-6 lg:px-12 mb-14">
         {/* Header */}
-        <div className="mb-16 max-w-3xl">
+        <div className="max-w-3xl">
           <motion.span
             className="text-label text-gold block mb-6"
             initial={{ opacity: 0, y: 10 }}
@@ -48,7 +54,7 @@ export function ChapterClientes() {
             transition={{ duration: 0.6 }}
           >
             Venha ser também{" "}
-            <em className="text-gold-warm not-italic font-serif italic">
+            <em className="text-gold-warm font-serif italic">
               um de nossos clientes.
             </em>
           </motion.h2>
@@ -60,45 +66,89 @@ export function ChapterClientes() {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Mais de 350 empresas confiam na DICON para conduzir a contabilidade
-            do seu negócio. Indústria, comércio, serviço, holding — atendemos
-            cada setor com técnica e proximidade.
+            Mais de 350 empresas confiam na DICON. Indústria, comércio, serviço,
+            holding — cada setor com a técnica e a proximidade que merece.
           </motion.p>
         </div>
+      </div>
 
-        {/* Grid de logos */}
+      {/* Marquee infinito de clientes */}
+      <div className="relative flex overflow-hidden">
+        {/* Borders */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-ink-deep to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-ink-deep to-transparent z-10" />
+
+        {/* Track 1 */}
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-px bg-gold/10 border border-gold/10 rounded-2xl overflow-hidden"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          className="flex items-center gap-12 whitespace-nowrap py-10"
+          animate={{ x: [0, "-50%"] }}
+          transition={{
+            x: { repeat: Infinity, repeatType: "loop", duration: 45, ease: "linear" },
+          }}
         >
-          {clientes.map((c) => (
-            <div
-              key={c.slug}
-              className="group relative aspect-[3/2] flex items-center justify-center bg-ink-deep p-6 transition-colors duration-300 hover:bg-ink-rich"
-              title={c.name}
-            >
-              {/* Placeholder profissional — substitua por <Image /> quando tiver logos */}
-              <span className="font-serif text-sm md:text-base text-bone-muted/70 group-hover:text-gold transition-colors duration-300 text-center leading-tight">
-                {c.name}
+          {items.map((item, index) => (
+            <div key={`a-${index}`} className="flex items-center gap-12">
+              <span className="font-serif text-[clamp(1.75rem,4vw,3rem)] font-light tracking-tight text-bone-muted hover:text-gold-warm transition-colors duration-300 cursor-default">
+                {item}
+              </span>
+              <span className="text-gold text-2xl" aria-hidden="true">
+                ◆
               </span>
             </div>
           ))}
         </motion.div>
+      </div>
 
-        {/* CTA */}
+      {/* Track 2 — sentido contrário (mais profundidade) */}
+      <div className="relative flex overflow-hidden border-t border-gold/10">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-ink-deep to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-ink-deep to-transparent z-10" />
+
         <motion.div
-          className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6"
+          className="flex items-center gap-12 whitespace-nowrap py-10"
+          animate={{ x: ["-50%", 0] }}
+          transition={{
+            x: { repeat: Infinity, repeatType: "loop", duration: 55, ease: "linear" },
+          }}
+        >
+          {items.slice().reverse().map((item, index) => (
+            <div key={`b-${index}`} className="flex items-center gap-12">
+              <span className="font-serif italic text-[clamp(1.5rem,3.5vw,2.5rem)] font-light tracking-tight text-bone-muted/70 hover:text-gold transition-colors duration-300 cursor-default">
+                {item}
+              </span>
+              <span className="text-gold/60 text-xl" aria-hidden="true">
+                ◇
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* CTA + métrica */}
+      <div className="container mx-auto px-6 lg:px-12 mt-16">
+        <motion.div
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
+          <div className="flex items-baseline gap-3">
+            <span className="font-serif text-6xl md:text-7xl text-gold font-light">
+              350+
+            </span>
+            <span className="text-bone-muted text-sm uppercase tracking-widest">
+              empresas ativas
+            </span>
+          </div>
+
           <Link
             href="#contato"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-ink-deep font-medium rounded-lg transition-all duration-300 hover:bg-gold-warm hover:shadow-lg hover:shadow-gold/20"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gold text-ink-deep font-medium rounded-lg transition-all duration-300 hover:bg-gold-warm hover:shadow-lg hover:shadow-gold/20"
           >
             Quero ser cliente DICON
             <svg
@@ -115,10 +165,6 @@ export function ChapterClientes() {
               />
             </svg>
           </Link>
-
-          <p className="text-sm text-bone-muted">
-            Diagnóstico gratuito · Resposta em até 4 horas úteis
-          </p>
         </motion.div>
       </div>
     </section>

@@ -1,199 +1,111 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
+import { useEffect } from "react"
+import { motion } from "framer-motion"
+import Script from "next/script"
+import { Quote, Star } from "lucide-react"
 
-const testimonials = [
-  {
-    id: 1,
-    quote:
-      "A DICON me devolveu o tempo que eu gastava lendo legislação. Hoje eu rodo a empresa, eles cuidam do resto.",
-    author: "Marcos Schneider",
-    role: "Fundador",
-    company: "Schneider Couros Ltda.",
-    initials: "MS",
-  },
-  {
-    id: 2,
-    quote:
-      "Migrei de uma contabilidade grande para a DICON em 2022. Em 12 meses economizei 18% em tributos legalmente. CloudConta mudou meu jogo.",
-    author: "Renata Holzmann",
-    role: "CEO",
-    company: "NH Calçados Online",
-    initials: "RH",
-  },
-  {
-    id: 3,
-    quote:
-      "50 anos de história não se finge. Quando o auditor da Receita chegou, a DICON tinha tudo organizado antes mesmo de eu pedir.",
-    author: "Carlos Eduardo Wagner",
-    role: "Diretor Financeiro",
-    company: "WPM Indústria",
-    initials: "CW",
-  },
-]
+// Widget ID do Elfsight (configurado em elfsight.com)
+const ELFSIGHT_WIDGET_ID = "c87bd071-27ff-42f3-8f10-c6cf2cee7efb"
 
 export function ChapterTrust() {
-  const [current, setCurrent] = useState(0)
-  const [direction, setDirection] = useState(0)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-
-  const next = () => {
-    setDirection(1)
-    setCurrent((prev) => (prev + 1) % testimonials.length)
-  }
-
-  const prev = () => {
-    setDirection(-1)
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
-
+  // Garante que o widget seja inicializado mesmo em navegações SPA
   useEffect(() => {
-    intervalRef.current = setInterval(next, 8000)
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+    if (typeof window === "undefined") return
+    const w = window as unknown as { eapps?: { init: () => void } }
+    if (w.eapps?.init) {
+      w.eapps.init()
     }
   }, [])
 
-  const resetInterval = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(next, 8000)
-  }
-
-  const handlePrev = () => {
-    prev()
-    resetInterval()
-  }
-
-  const handleNext = () => {
-    next()
-    resetInterval()
-  }
-
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
-      opacity: 0,
-    }),
-  }
-
   return (
     <section
-      className="relative min-h-screen bg-ink-deep section-padding overflow-hidden flex items-center"
+      className="relative bg-ink-deep section-padding overflow-hidden flex flex-col justify-center"
       aria-labelledby="trust-title"
     >
+      {/* Script do Elfsight (carregado uma vez, lazy) */}
+      <Script
+        src="https://elfsightcdn.com/platform.js"
+        strategy="lazyOnload"
+      />
+
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Chapter label */}
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 flex items-baseline justify-between flex-wrap gap-6"
+        >
+          <div>
+            <span className="text-label text-gold block mb-4">
+              [ VIII — Confiança ]
+            </span>
+            <h2
+              id="trust-title"
+              className="font-serif text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-bone leading-[1.05] max-w-3xl"
+            >
+              O que dizem sobre{" "}
+              <em className="text-gold-warm font-serif italic">a DICON.</em>
+            </h2>
+          </div>
+
+          {/* Selo Google Reviews */}
+          <a
+            href="https://maps.app.goo.gl/VFgfMnBrAiP84ScQA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 px-5 py-3 rounded-2xl bg-gradient-to-br from-ink-rich to-ink-deep border border-gold/15 hover:border-gold/40 transition-all duration-300"
+            aria-label="Ver avaliações no Google"
+          >
+            <div className="flex flex-col items-start">
+              <span className="text-xs text-bone-muted uppercase tracking-widest font-mono">
+                Google Reviews
+              </span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="font-serif text-3xl text-bone font-light leading-none">
+                  5,0
+                </span>
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star
+                      key={i}
+                      className="w-3.5 h-3.5 fill-gold text-gold"
+                    />
+                  ))}
+                </div>
+              </div>
+              <span className="text-xs text-bone-muted mt-1">
+                117 avaliações reais
+              </span>
+            </div>
+            <Quote
+              className="w-8 h-8 text-gold/40 group-hover:text-gold transition-colors"
+              strokeWidth={1.5}
+            />
+          </a>
+        </motion.div>
+
+        {/* Widget Elfsight com reviews REAIS do Google */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="relative"
         >
-          <span className="text-label text-gold">[ VIII — Confiança ]</span>
+          {/* Container do widget — Elfsight injeta os reviews aqui */}
+          <div
+            className={`elfsight-app-${ELFSIGHT_WIDGET_ID} min-h-[400px]`}
+            data-elfsight-app-lazy
+          />
         </motion.div>
-
-        <div className="max-w-5xl mx-auto">
-          {/* Quote icon */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
-          >
-            <Quote className="w-16 h-16 text-gold/30" strokeWidth={1} />
-          </motion.div>
-
-          {/* Testimonial */}
-          <div className="relative min-h-[300px]" id="trust-title">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <blockquote className="mb-12">
-                  <p className="font-serif text-display-sm text-bone italic leading-snug">
-                    &ldquo;{testimonials[current].quote}&rdquo;
-                  </p>
-                </blockquote>
-
-                <footer className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-warm flex items-center justify-center shrink-0">
-                    <span className="font-mono text-sm text-ink-deep font-medium">
-                      {testimonials[current].initials}
-                    </span>
-                  </div>
-                  <div>
-                    <cite className="not-italic">
-                      <span className="block text-bone font-medium text-lg">
-                        {testimonials[current].author}
-                      </span>
-                      <span className="block text-bone-muted">
-                        {testimonials[current].role}, {testimonials[current].company}
-                      </span>
-                    </cite>
-                  </div>
-                </footer>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-between mt-16">
-            <div className="flex items-center gap-3">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setDirection(index > current ? 1 : -1)
-                    setCurrent(index)
-                    resetInterval()
-                  }}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === current ? "bg-gold w-8" : "bg-bone/20 w-2 hover:bg-bone/40"
-                  }`}
-                  aria-label={`Ver depoimento ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handlePrev}
-                className="p-3 rounded-full border border-bone/15 hover:border-gold/40 hover:bg-gold/5 transition-all duration-300"
-                aria-label="Depoimento anterior"
-              >
-                <ChevronLeft className="w-5 h-5 text-bone" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="p-3 rounded-full border border-bone/15 hover:border-gold/40 hover:bg-gold/5 transition-all duration-300"
-                aria-label="Próximo depoimento"
-              >
-                <ChevronRight className="w-5 h-5 text-bone" />
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
+      {/* Background decoration */}
       <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[200px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/3 rounded-full blur-[150px] pointer-events-none -translate-x-1/2 translate-y-1/2" />
     </section>
   )
 }

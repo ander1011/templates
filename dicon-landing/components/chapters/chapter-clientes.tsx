@@ -66,8 +66,9 @@ export function ChapterClientes() {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Mais de 350 empresas confiam na DICON. Indústria, comércio, serviço,
-            holding — cada setor com a técnica e a proximidade que merece.
+            350+ empresas confiam na DICON desde 1975. Indústria, comércio,
+            serviço, holding — cada setor com a técnica e a proximidade que
+            merece.
           </motion.p>
         </div>
       </div>

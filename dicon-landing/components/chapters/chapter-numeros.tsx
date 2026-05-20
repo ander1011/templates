@@ -6,9 +6,6 @@ const numeros = [
   { valor: "50", sufixo: "anos", label: "de mercado contábil" },
   { valor: "350", sufixo: "+", label: "empresas ativas" },
   { valor: "15", sufixo: "k+", label: "obrigações entregues/ano" },
-  { valor: "98", sufixo: "%", label: "retenção de clientes" },
-  { valor: "4h", sufixo: "", label: "tempo médio de resposta" },
-  { valor: "0", sufixo: "", label: "multas por erro contábil" },
 ]
 
 export function ChapterNumeros() {
@@ -52,7 +49,7 @@ export function ChapterNumeros() {
         </motion.div>
 
         {/* Grid de números */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-gold/10 border border-gold/10 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gold/10 border border-gold/10 rounded-2xl overflow-hidden">
           {numeros.map((n, idx) => (
             <motion.div
               key={n.label}

@@ -145,11 +145,6 @@ const jsonLd = {
         "https://www.instagram.com/contabilidadedicon",
         "https://www.linkedin.com/company/dicon-contabilidade",
       ],
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: "350",
-      },
     },
     {
       "@type": "LocalBusiness",

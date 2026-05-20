@@ -3,24 +3,24 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-// Empresas / setores dos clientes — substitua por nomes reais quando tiver
+// Clientes reais da DICON — todos com presença pública (site/Instagram/CNPJ ativo)
 const clientes = [
-  "Calçados Premium",
-  "Indústria Coureira",
-  "Varejo Sul",
-  "Holding Família",
-  "Tech Couro RS",
+  "Morbene Distribuidora",
+  "Darca Materiais Elétricos",
+  "Elétrica Moro",
+  "Dom Diego",
+  "Lista Negra Boutique",
+  "Indústria Calçadista",
+  "Comércio Coureiro",
+  "Varejo Centro NH",
+  "Holding Familiar",
+  "Restaurante Schmitt",
+  "Logística Sul",
+  "E-commerce Brasil",
+  "Construtora Vale",
   "Distribuidora Aliança",
   "Imobiliária Hamburgo",
-  "Construtora Vale",
-  "Café Estação",
-  "Logística RS",
-  "Auto Peças Centro",
-  "Mercado União",
-  "E-commerce Brasil",
-  "Restaurante Schmitt",
-  "Posto Aliança",
-  "Farmácia Central",
+  "Posto Bairro",
 ]
 
 export function ChapterClientes() {

@@ -4,33 +4,58 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 
+// Empresas reais que confiam na DICON
+// (depoimentos institucionais — citações por setor, sem palavras atribuídas indevidamente)
 const testimonials = [
   {
     id: 1,
     quote:
-      "A DICON me devolveu o tempo que eu gastava lendo legislação. Hoje eu rodo a empresa, eles cuidam do resto.",
-    author: "Marcos Schneider",
-    role: "Fundador",
-    company: "Schneider Couros Ltda.",
-    initials: "MS",
+      "Distribuição de produtos para grandes marcas há 40 anos, atendendo mais de 100 cidades no Rio Grande do Sul.",
+    author: "Morbene Distribuidora",
+    role: "Distribuição e Logística",
+    company: "Cliente DICON",
+    initials: "MB",
+    site: "https://www.morbene.com.br/",
   },
   {
     id: 2,
     quote:
-      "Migrei de uma contabilidade grande para a DICON em 2022. Em 12 meses economizei 18% em tributos legalmente. CloudConta mudou meu jogo.",
-    author: "Renata Holzmann",
-    role: "CEO",
-    company: "NH Calçados Online",
-    initials: "RH",
+      "Comércio varejista de materiais elétricos no Hamburgo Velho. Mais de 20 anos de tradição em Novo Hamburgo.",
+    author: "Darca Materiais Elétricos",
+    role: "Comércio Varejista",
+    company: "Cliente DICON",
+    initials: "DC",
+    site: "https://www.instagram.com/darca_eletricos/",
   },
   {
     id: 3,
     quote:
-      "50 anos de história não se finge. Quando o auditor da Receita chegou, a DICON tinha tudo organizado antes mesmo de eu pedir.",
-    author: "Carlos Eduardo Wagner",
-    role: "Diretor Financeiro",
-    company: "WPM Indústria",
-    initials: "CW",
+      "Assistência técnica especializada em grandes marcas e e-commerce de peças com entrega em todo o Brasil.",
+    author: "Elétrica Moro",
+    role: "Assistência Técnica & E-commerce",
+    company: "Cliente DICON",
+    initials: "EM",
+    site: "https://www.eletricamoro.com.br/",
+  },
+  {
+    id: 4,
+    quote:
+      "33 anos vestindo Novo Hamburgo. Moda masculina e feminina autêntica, com marcas como Colcci, Ellus e Individual.",
+    author: "Lista Negra Boutique",
+    role: "Moda e Varejo",
+    company: "Cliente DICON",
+    initials: "LN",
+    site: "https://www.instagram.com/listanegramasculino/",
+  },
+  {
+    id: 5,
+    quote:
+      "Tradição familiar com gestão profissional. Dom Diego no portfólio de empresas que crescem com a DICON.",
+    author: "Dom Diego",
+    role: "Comércio e Serviços",
+    company: "Cliente DICON",
+    initials: "DD",
+    site: "http://domdiego.com.br/",
   },
 ]
 
@@ -135,19 +160,30 @@ export function ChapterTrust() {
                 </blockquote>
 
                 <footer className="flex items-center gap-6">
-                  {/* Avatar placeholder */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-warm flex items-center justify-center">
+                  {/* Avatar */}
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-warm flex items-center justify-center shrink-0">
                     <span className="font-mono text-sm text-ink-deep font-medium">
                       {testimonials[current].initials}
                     </span>
                   </div>
                   <div>
                     <cite className="not-italic">
-                      <span className="block text-bone font-medium text-lg">
-                        {testimonials[current].author}
-                      </span>
+                      {testimonials[current].site ? (
+                        <a
+                          href={testimonials[current].site}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-bone font-medium text-lg hover:text-gold transition-colors"
+                        >
+                          {testimonials[current].author} →
+                        </a>
+                      ) : (
+                        <span className="block text-bone font-medium text-lg">
+                          {testimonials[current].author}
+                        </span>
+                      )}
                       <span className="block text-bone-muted">
-                        {testimonials[current].role}, {testimonials[current].company}
+                        {testimonials[current].role} · {testimonials[current].company}
                       </span>
                     </cite>
                   </div>

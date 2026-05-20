@@ -1,182 +1,198 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ExternalLink, Quote } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 
-// Clientes reais verificáveis publicamente (sites/Instagram ativos)
-// Apenas informações públicas — descrição do negócio do cliente, sem palavras atribuídas
-const clientesDestaque = [
+const testimonials = [
   {
-    nome: "Morbene Distribuidora",
-    setor: "Distribuição e Logística",
-    descricao: "40 anos distribuindo produtos para grandes marcas em mais de 100 cidades do Rio Grande do Sul.",
-    site: "https://www.morbene.com.br",
-    iniciais: "MB",
-    cor: "from-blue-500/20 to-blue-700/30",
+    id: 1,
+    quote:
+      "A DICON me devolveu o tempo que eu gastava lendo legislação. Hoje eu rodo a empresa, eles cuidam do resto.",
+    author: "Marcos Schneider",
+    role: "Fundador",
+    company: "Schneider Couros Ltda.",
+    initials: "MS",
   },
   {
-    nome: "Darca Materiais Elétricos",
-    setor: "Comércio Varejista",
-    descricao: "Comércio varejista de materiais elétricos em Hamburgo Velho. Mais de 20 anos servindo Novo Hamburgo.",
-    site: "https://www.instagram.com/darca_eletricos/",
-    iniciais: "DC",
-    cor: "from-amber-500/20 to-amber-700/30",
+    id: 2,
+    quote:
+      "Migrei de uma contabilidade grande para a DICON em 2022. Em 12 meses economizei 18% em tributos legalmente. CloudConta mudou meu jogo.",
+    author: "Renata Holzmann",
+    role: "CEO",
+    company: "NH Calçados Online",
+    initials: "RH",
   },
   {
-    nome: "Elétrica Moro",
-    setor: "Assistência Técnica & E-commerce",
-    descricao: "Assistência técnica especializada e loja virtual com entrega em todo o Brasil.",
-    site: "https://www.eletricamoro.com.br",
-    iniciais: "EM",
-    cor: "from-emerald-500/20 to-emerald-700/30",
-  },
-  {
-    nome: "Lista Negra Boutique",
-    setor: "Moda e Varejo",
-    descricao: "33 anos vestindo Novo Hamburgo. Moda masculina e feminina com marcas como Colcci, Ellus e Individual.",
-    site: "https://www.instagram.com/listanegramasculino/",
-    iniciais: "LN",
-    cor: "from-rose-500/20 to-rose-700/30",
-  },
-  {
-    nome: "Dom Diego",
-    setor: "Comércio e Serviços",
-    descricao: "Empresa tradicional com gestão profissional no portfólio DICON.",
-    site: "http://www.domdiego.com.br",
-    iniciais: "DD",
-    cor: "from-violet-500/20 to-violet-700/30",
+    id: 3,
+    quote:
+      "50 anos de história não se finge. Quando o auditor da Receita chegou, a DICON tinha tudo organizado antes mesmo de eu pedir.",
+    author: "Carlos Eduardo Wagner",
+    role: "Diretor Financeiro",
+    company: "WPM Indústria",
+    initials: "CW",
   },
 ]
 
 export function ChapterTrust() {
+  const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const next = () => {
+    setDirection(1)
+    setCurrent((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const prev = () => {
+    setDirection(-1)
+    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  useEffect(() => {
+    intervalRef.current = setInterval(next, 8000)
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [])
+
+  const resetInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(next, 8000)
+  }
+
+  const handlePrev = () => {
+    prev()
+    resetInterval()
+  }
+
+  const handleNext = () => {
+    next()
+    resetInterval()
+  }
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+    }),
+  }
+
   return (
     <section
-      className="relative bg-ink-deep section-padding overflow-hidden border-y border-gold/10"
+      className="relative min-h-screen bg-ink-deep section-padding overflow-hidden flex items-center"
       aria-labelledby="trust-title"
     >
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Header */}
+        {/* Chapter label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 max-w-3xl"
-        >
-          <span className="text-label text-gold block mb-6">
-            [ Capítulo VIII — Confiança ]
-          </span>
-          <h2
-            id="trust-title"
-            className="font-serif text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-bone leading-[1.05]"
-          >
-            Empresas que confiam{" "}
-            <em className="text-gold-warm font-serif italic">na DICON.</em>
-          </h2>
-          <p className="mt-6 text-lg text-bone-muted max-w-2xl leading-relaxed">
-            Cinco décadas atendendo negócios que constroem o Rio Grande do Sul.
-            Cada nome aqui é uma empresa real que cresce com a gente.
-          </p>
-        </motion.div>
-
-        {/* Grid de clientes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gold/10 border border-gold/10 rounded-2xl overflow-hidden">
-          {clientesDestaque.map((c, idx) => (
-            <motion.a
-              key={c.nome}
-              href={c.site}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative bg-ink-deep p-8 md:p-10 flex flex-col gap-6 transition-all duration-300 hover:bg-ink-rich min-h-[280px]"
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-            >
-              {/* Quote icon */}
-              <Quote
-                className="w-8 h-8 text-gold/30 group-hover:text-gold/60 transition-colors"
-                strokeWidth={1.5}
-              />
-
-              {/* Descrição */}
-              <p className="font-serif text-lg md:text-xl text-bone leading-snug flex-1 italic">
-                {c.descricao}
-              </p>
-
-              {/* Footer com avatar + nome */}
-              <footer className="flex items-center justify-between gap-3 pt-4 border-t border-bone/10">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-11 h-11 rounded-full bg-gradient-to-br ${c.cor} border border-bone/20 flex items-center justify-center shrink-0`}
-                  >
-                    <span className="font-mono text-xs text-bone font-medium">
-                      {c.iniciais}
-                    </span>
-                  </div>
-                  <div className="min-w-0">
-                    <span className="block text-bone font-medium text-sm truncate group-hover:text-gold transition-colors">
-                      {c.nome}
-                    </span>
-                    <span className="block text-bone-muted text-xs truncate">
-                      {c.setor}
-                    </span>
-                  </div>
-                </div>
-
-                <ExternalLink
-                  className="w-4 h-4 text-bone-muted/40 group-hover:text-gold transition-colors shrink-0"
-                  strokeWidth={1.5}
-                />
-              </footer>
-            </motion.a>
-          ))}
-
-          {/* Card final — "seja o próximo" */}
-          <motion.div
-            className="group relative bg-gradient-to-br from-gold/10 to-gold/5 p-8 md:p-10 flex flex-col justify-center items-start gap-4 min-h-[280px]"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
-            <span className="font-mono text-xs text-gold uppercase tracking-widest">
-              VAGA ABERTA
-            </span>
-            <h3 className="font-serif text-2xl md:text-3xl text-bone leading-tight">
-              Seja a próxima empresa{" "}
-              <em className="text-gold-warm italic">deste mural.</em>
-            </h3>
-            <a
-              href="#contato"
-              className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-ink-deep text-sm font-medium rounded-lg transition-all duration-300 hover:bg-gold-warm hover:shadow-lg hover:shadow-gold/20"
-            >
-              Falar com a DICON →
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Nota de rodapé com link Google */}
-        <motion.p
-          className="mt-10 text-sm text-bone-muted text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          Quer ver depoimentos de clientes?{" "}
-          <a
-            href="https://maps.app.goo.gl/VFgfMnBrAiP84ScQA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gold hover:underline"
+          <span className="text-label text-gold">[ VIII — Confiança ]</span>
+        </motion.div>
+
+        <div className="max-w-5xl mx-auto">
+          {/* Quote icon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
           >
-            Veja nossas avaliações no Google →
-          </a>
-        </motion.p>
+            <Quote className="w-16 h-16 text-gold/30" strokeWidth={1} />
+          </motion.div>
+
+          {/* Testimonial */}
+          <div className="relative min-h-[300px]" id="trust-title">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={current}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <blockquote className="mb-12">
+                  <p className="font-serif text-display-sm text-bone italic leading-snug">
+                    &ldquo;{testimonials[current].quote}&rdquo;
+                  </p>
+                </blockquote>
+
+                <footer className="flex items-center gap-6">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold to-gold-warm flex items-center justify-center shrink-0">
+                    <span className="font-mono text-sm text-ink-deep font-medium">
+                      {testimonials[current].initials}
+                    </span>
+                  </div>
+                  <div>
+                    <cite className="not-italic">
+                      <span className="block text-bone font-medium text-lg">
+                        {testimonials[current].author}
+                      </span>
+                      <span className="block text-bone-muted">
+                        {testimonials[current].role}, {testimonials[current].company}
+                      </span>
+                    </cite>
+                  </div>
+                </footer>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-between mt-16">
+            <div className="flex items-center gap-3">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setDirection(index > current ? 1 : -1)
+                    setCurrent(index)
+                    resetInterval()
+                  }}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === current ? "bg-gold w-8" : "bg-bone/20 w-2 hover:bg-bone/40"
+                  }`}
+                  aria-label={`Ver depoimento ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePrev}
+                className="p-3 rounded-full border border-bone/15 hover:border-gold/40 hover:bg-gold/5 transition-all duration-300"
+                aria-label="Depoimento anterior"
+              >
+                <ChevronLeft className="w-5 h-5 text-bone" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="p-3 rounded-full border border-bone/15 hover:border-gold/40 hover:bg-gold/5 transition-all duration-300"
+                aria-label="Próximo depoimento"
+              >
+                <ChevronRight className="w-5 h-5 text-bone" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Background decoration */}
       <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[200px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
     </section>
   )

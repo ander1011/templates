@@ -143,7 +143,7 @@ const jsonLd = {
         availableLanguage: "Portuguese",
       },
       sameAs: [
-        "https://www.instagram.com/diconcontabilidade",
+        "https://www.instagram.com/contabilidadedicon",
         "https://www.linkedin.com/company/dicon-contabilidade",
       ],
       aggregateRating: {

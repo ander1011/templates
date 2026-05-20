@@ -189,7 +189,7 @@ export function Footer() {
             className="flex items-center gap-4"
           >
             <Link
-              href="https://instagram.com/diconcontabilidade"
+              href="https://instagram.com/contabilidadedicon"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-glass-border hover:border-gold/40 hover:bg-gold/5 transition-all duration-300"
